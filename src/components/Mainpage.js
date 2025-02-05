@@ -1,14 +1,14 @@
 import { useState } from "react";
-import Home from "./Home";
+import Homepage from "./Homepage";
 import NavBar from "./NavBar";
 import LoginForm from './LoginForm';
 import RegistrationForm from './Registrationform'
 import AddCourtForm from './AddCourtForm'
-const Main = ()=>{
-    let [page,setPage]=useState('home');
+const Mainpage = ()=>{
+    let [page,setPage]=useState('Homepage');
     let currentPage;
-    if(page==='home')
-        currentPage=<Home/>
+    if(page==='Homepage')
+        currentPage=<Homepage/>
     else if(page==='login')
         currentPage=<LoginForm navigate={setPage}/>
     else if (page==='register')    
@@ -22,4 +22,4 @@ const Main = ()=>{
         </div>
     );
 }
-export default Main;
+export default Mainpage;

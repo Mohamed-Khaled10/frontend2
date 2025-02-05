@@ -13,7 +13,7 @@ const AddCourtForm = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({home:origin,away:locationocation, price, quantity }), 
+      body: JSON.stringify({ name, location, price, quantity }), 
       credentials:"include"
     })
     .then((response) => {

@@ -39,4 +39,4 @@ const CourtList = () => {
   );
 };
 
-export default CourtListList;
+export default CourtList;
