@@ -7,7 +7,7 @@ const NavBar = () => {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        // Check admin status when component mounts and when localStorage changes
+        
         const checkAdminStatus = () => {
             const adminValue = localStorage.getItem('isAdmin');
             const adminStatus = adminValue === 'true';

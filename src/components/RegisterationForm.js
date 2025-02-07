@@ -56,12 +56,19 @@ const RegistrationForm = () => {
         name: formData.name.trim(),
         email: formData.email.trim().toLowerCase(),
         password: formData.password,
-        isAdmin: formData.isAdmin ? 1 : 0  // Convert boolean to 1/0 for SQLite
+        admin: formData.isAdmin ? 1 : 0 
       };
 
-      console.log('Attempting to register with data:', registrationData);
+      console.log('Registration Data:', {
+        formData,
+        registrationData,
+        adminStatus: {
+          isAdminChecked: formData.isAdmin,
+          adminValueToSend: registrationData.admin
+        }
+      });
 
-      // Make the registration request
+     
       const response = await fetch('http://localhost:555/user/register', {
         method: 'POST',
         headers: { 
@@ -70,16 +77,17 @@ const RegistrationForm = () => {
         body: JSON.stringify(registrationData)
       });
 
-      // Get the response text first
+      
       const responseText = await response.text();
-      console.log('Raw server response:', responseText);
+      console.log('Raw Registration Response:', responseText);
 
-      // Try to parse it as JSON
+      
       let data;
       try {
         data = JSON.parse(responseText);
+        console.log('Parsed Registration Response:', data);
       } catch (e) {
-        console.log('Failed to parse response as JSON:', e);
+        console.error('Failed to parse registration response as JSON:', e);
         data = { message: responseText };
       }
 
@@ -89,11 +97,11 @@ const RegistrationForm = () => {
         throw new Error(data.message || data.error || 'Registration failed');
       }
 
-      // If we get here, registration was successful
+      
       setSuccess('Registration successful! Redirecting to login...');
       console.log('Registration successful:', data);
       
-      // Clear the form
+      
       setFormData({
         name: '',
         email: '',
@@ -101,10 +109,11 @@ const RegistrationForm = () => {
         isAdmin: false
       });
 
-      // Redirect after a short delay
+      
       setTimeout(() => {
         navigate('/login');
       }, 2000);
+
     } catch (error) {
       console.error('Registration error:', error);
       setError(error.message || 'Failed to register. Please try again.');
@@ -150,16 +159,17 @@ const RegistrationForm = () => {
           required
         />
         <br />
-        <label>
+        <div className="checkbox-group">
           <input
             type="checkbox"
+            id="isAdmin"
             name="isAdmin"
             checked={formData.isAdmin}
             onChange={handleChange}
             disabled={loading}
           />
-          Admin
-        </label>
+          <label htmlFor="isAdmin">Register as Admin</label>
+        </div>
         <br />
         <button type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}

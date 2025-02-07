@@ -1,4 +1,4 @@
-.court-list-container {
+/* .court-list-container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 1rem;
@@ -112,7 +112,7 @@
     background-color: #218838;
 }
 
-/* Empty State */
+
 .no-courts {
     text-align: center;
     color: #666;
@@ -121,7 +121,7 @@
     border-radius: 8px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .court-list-container {
         padding: 1rem;
@@ -141,7 +141,7 @@
     }
 }
 
-/* Pagination */
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -166,4 +166,4 @@
 .pagination-btn.active {
     background-color: #007bff;
     color: white;
-}
+} */

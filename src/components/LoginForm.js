@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -17,68 +19,73 @@ const LoginForm = () => {
     }));
   };
 
-  const loginUser = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!formData.email || !formData.password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
     setLoading(true);
-
     try {
-      const loginData = {
-        email: formData.email.trim().toLowerCase(),
-        password: formData.password
-      };
-
-      console.log('Attempting to login with:', loginData);
-
+      
       const response = await fetch('http://localhost:555/user/login', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(loginData)
+        body: JSON.stringify({
+          email: formData.email.trim().toLowerCase(),
+          password: formData.password
+        })
       });
 
-      // Get the response text first
-      const responseText = await response.text();
-      console.log('Raw server response:', responseText);
-
-      // Try to parse it as JSON
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (e) {
-        console.log('Failed to parse response as JSON:', e);
-        data = { message: responseText };
-      }
-
-      console.log('Processed server response:', data);
+      const data = await response.json();
+      console.log('Login Response:', {
+        fullResponse: data,
+        adminField: {
+          value: data.admin,
+          type: typeof data.admin
+        }
+      });
 
       if (!response.ok) {
         throw new Error(data.message || data.error || 'Login failed');
       }
 
-      // Login successful
-      console.log('Login successful:', data);
-
+      
       const isAdmin = data.admin === 1;
-      console.log('Setting admin status:', { raw: data.admin, isAdmin });
+      console.log('Admin Status Check:', { 
+        rawAdminValue: data.admin,
+        rawAdminType: typeof data.admin,
+        comparison: `${data.admin} === 1`,
+        comparisonResult: data.admin === 1,
+        finalIsAdmin: isAdmin
+      });
 
-      // For now, use a placeholder token since server doesn't send one
+      
       const placeholderToken = `user_${data.id}_${Date.now()}`;
       localStorage.setItem('authToken', placeholderToken);
       localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
 
-      // Force a page reload to update the navbar
+      console.log('LocalStorage After Login:', {
+        authToken: localStorage.getItem('authToken'),
+        isAdmin: localStorage.getItem('isAdmin')
+      });
+
+      
       window.location.reload();
       
-      // Then redirect based on admin status
+      
       setTimeout(() => {
         window.location.href = isAdmin ? '/add-court' : '/';
       }, 100);
       
     } catch (error) {
       console.error('Login error:', error);
-      setError(error.message || 'Login failed');
+      setError(error.message || 'Failed to login. Please check your credentials.');
     } finally {
       setLoading(false);
     }
@@ -86,10 +93,10 @@ const LoginForm = () => {
 
   return (
     <div className="form-section">
-      <h3>User Login</h3>
+      <h3>Login</h3>
       {error && <div className="error-message">{error}</div>}
       
-      <form onSubmit={loginUser}>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"

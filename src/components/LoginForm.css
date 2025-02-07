@@ -134,7 +134,7 @@
     color: #0056b3;
 }
 
-/* Error Styling */
+
 .error-message {
     color: #dc3545;
     font-size: 0.875rem;
@@ -142,7 +142,7 @@
     text-align: left;
 }
 
-/* Social Login */
+
 .social-login {
     display: flex;
     justify-content: center;
@@ -172,7 +172,7 @@
     height: 20px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 480px) {
     .login-wrapper {
         width: 90%;
