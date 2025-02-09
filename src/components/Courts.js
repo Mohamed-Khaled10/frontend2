@@ -8,44 +8,44 @@ const Courts = () => {
   const sampleCourts = [
     {
       id: 1,
-      name: "Main Football Field",
-      location: "Downtown Sports Complex",
+      name: "AL ahly club",
+      location: "Madinet Nasr",
       type: "Football",
       price: 50
     },
     {
       id: 2,
-      name: "Center Court Tennis",
-      location: "Tennis Academy",
-      type: "Tennis",
+      name: "Tolip Hotel",
+      location: "Tagamou",
+      type: "Football",
       price: 30
     },
     {
       id: 3,
-      name: "Basketball Arena",
-      location: "Community Center",
-      type: "Basketball",
+      name: "Fighter court",
+      location: "Obour city",
+      type: "Football",
       price: 40
     },
     {
       id: 4,
-      name: "Indoor Volleyball Court",
-      location: "Sports Hall",
-      type: "Volleyball",
+      name: "Maadi club",
+      location: "EL Maadi",
+      type: "Football",
       price: 35
     },
     {
       id: 5,
       name: "Practice Football Field",
-      location: "Training Ground",
+      location: "Sheikh zayed",
       type: "Football",
       price: 45
     },
     {
       id: 6,
-      name: "Professional Tennis Court",
-      location: "Tennis Club",
-      type: "Tennis",
+      name: "Future",
+      location: "Masr el gedida",
+      type: "Football",
       price: 40
     }
   ];
